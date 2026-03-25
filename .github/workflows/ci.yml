@@ -10,6 +10,9 @@ on:
 env:
   CARGO_TERM_COLOR: always
   RUST_BACKTRACE: 1
+  # Opt into Node.js 24 now; required before June 2 2026 when it becomes
+  # the forced default. Remove once all actions ship Node-24 natively.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   # ── 1. Check ─────────────────────────────────────────────────────────────────
@@ -17,7 +20,7 @@ jobs:
     name: Check (fmt + clippy + audit)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Install stable Rust with rustfmt + clippy
         uses: dtolnay/rust-toolchain@stable
@@ -49,7 +52,7 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Install stable Rust
         uses: dtolnay/rust-toolchain@stable
@@ -89,7 +92,7 @@ jobs:
             artifact: cpv-windows-x86_64.exe
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Install stable Rust
         uses: dtolnay/rust-toolchain@stable
@@ -137,7 +140,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Download all artifacts
         uses: actions/download-artifact@v4
@@ -149,7 +152,6 @@ jobs:
         run: |
           TAG="${GITHUB_REF##refs/tags/}"
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-          # Extract changelog section for this tag if CHANGELOG.md exists
           if [ -f CHANGELOG.md ]; then
             awk "/^## $TAG/,/^## v/" CHANGELOG.md | head -n -1 > notes.md
           else
