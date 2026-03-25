@@ -1,6 +1,6 @@
 [package]
 name = "cpv"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 description = "Check pip packages for known security vulnerabilities via OSV.dev"
 authors = ["Michael Colletti"]
