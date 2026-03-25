@@ -1,1 +1,67 @@
-/target
+# ── Rust build artifacts ──────────────────────────────────────────────────────
+/target/
+**/*.rs.bk
+Cargo.lock.bak
+
+# ── Release binaries (cross-compiled output) ─────────────────────────────────
+cpv-linux-*
+cpv-macos-*
+cpv-windows-*
+
+# ── IDE / editor ──────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+.fleet/
+.zed/
+
+# ── macOS ─────────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+
+# ── Linux ─────────────────────────────────────────────────────────────────────
+*~
+.fuse_hidden*
+.nfs*
+
+# ── Windows ───────────────────────────────────────────────────────────────────
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ── Test fixtures & temp files ────────────────────────────────────────────────
+*.tmp
+*.bak
+*.swp
+/test-data/generated/
+
+# ── Environment & secrets ─────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+secrets.toml
+
+# ── Python (pip list output used for local testing) ──────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# ── Cargo security tooling ────────────────────────────────────────────────────
+advisory-db/
+deny.toml.bak
+
+# ── Claude / AI tooling ───────────────────────────────────────────────────────
+.claude/

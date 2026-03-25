@@ -39,11 +39,11 @@ pub fn parse_pip_list(input: &str) -> Vec<Package> {
 
         // pip list column format: split on 2+ spaces (name may contain single spaces rarely)
         // The column separator is always multiple spaces or a tab.
-        let parts: Vec<&str> = line.splitn(2, |c: char| c == ' ' || c == '\t').collect();
+        let parts: Vec<&str> = line.splitn(2, [' ', '\t']).collect();
         if parts.len() >= 2 {
             let name = parts[0].trim();
             // Version is the first non-empty token after the name
-            let version = parts[1].trim().split_whitespace().next().unwrap_or("").trim();
+            let version = parts[1].split_whitespace().next().unwrap_or("").trim();
             if !name.is_empty() && !version.is_empty() {
                 packages.push(Package {
                     name: name.to_string(),

@@ -46,12 +46,16 @@ pub struct OsvQueryResult {
 pub struct OsvVuln {
     pub id: String,
     pub summary: Option<String>,
+    // Kept for JSON completeness / future use
+    #[allow(dead_code)]
     pub details: Option<String>,
     #[serde(default)]
     pub severity: Vec<OsvSeverity>,
     #[serde(default)]
     pub aliases: Vec<String>,
     pub published: Option<String>,
+    // Kept for JSON completeness / future use
+    #[allow(dead_code)]
     pub modified: Option<String>,
     #[serde(default)]
     pub references: Vec<OsvReference>,
@@ -62,6 +66,8 @@ pub struct OsvVuln {
 
 #[derive(Deserialize, Debug, Clone)]
 pub struct OsvAffected {
+    // Kept for potential future package-filtering logic
+    #[allow(dead_code)]
     pub package: Option<OsvPackageRef>,
     #[serde(default)]
     pub ranges: Vec<OsvRange>,
@@ -78,7 +84,8 @@ pub struct OsvRange {
 
 #[derive(Deserialize, Debug, Clone, Default)]
 pub struct OsvEvent {
-    /// Version at which the vulnerability was introduced.
+    /// Version at which the vulnerability was introduced (used for context, not fix logic).
+    #[allow(dead_code)]
     pub introduced: Option<String>,
     /// Version at which the vulnerability was fixed (exclusive lower bound for safety).
     pub fixed: Option<String>,
