@@ -212,7 +212,9 @@ impl OsvClient {
         let mut map = HashMap::new();
         while let Some(res) = set.join_next().await {
             match res {
-                Ok(Ok((id, vuln))) => { map.insert(id, vuln); }
+                Ok(Ok((id, vuln))) => {
+                    map.insert(id, vuln);
+                }
                 Ok(Err(e)) => eprintln!("Warning: failed to fetch vuln details: {e}"),
                 Err(e) => eprintln!("Warning: task error: {e}"),
             }

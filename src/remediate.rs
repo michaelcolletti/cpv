@@ -128,7 +128,11 @@ fn parse_version_segment(s: &str) -> (u64, &str) {
 }
 
 fn version_max_str<'a>(a: &'a str, b: &'a str) -> &'a str {
-    if version_gt(a, b) { a } else { b }
+    if version_gt(a, b) {
+        a
+    } else {
+        b
+    }
 }
 
 // ── Known dependency relationships ─────────────────────────────────────────────
@@ -137,35 +141,47 @@ fn version_max_str<'a>(a: &'a str, b: &'a str) -> &'a str {
 /// This is a curated static map based on well-known PyPI package relationships.
 pub fn known_dependents(pkg_name: &str) -> &'static [&'static str] {
     match pkg_name.to_lowercase().as_str() {
-        "urllib3"           => &["requests", "selenium", "httpcore", "botocore"],
-        "requests"          => &["langchain", "langchain-community", "langsmith", "google-auth", "selenium", "huggingface-hub"],
-        "certifi"           => &["requests", "httpcore"],
-        "idna"              => &["requests", "httpx", "email-validator"],
-        "h11"               => &["httpcore", "uvicorn"],
-        "httpcore"          => &["httpx"],
-        "starlette"         => &["fastapi", "langserve"],
-        "jinja2"            => &["jupyter_server", "langchain-core", "nbconvert", "jupyterlab"],
-        "tornado"           => &["jupyter_server", "ipykernel"],
-        "aiohttp"           => &["langchain-community", "fsspec"],
-        "langchain-core"    => &["langchain", "langchain-community", "langserve"],
-        "langchain"         => &["langchain-community", "langserve"],
-        "orjson"            => &["chromadb"],
-        "protobuf"          => &["grpcio", "googleapis-common-protos", "opentelemetry-proto"],
-        "pyasn1"            => &["pyasn1-modules", "rsa"],
-        "setuptools"        => &["pip", "build", "many packages at install time"],
-        "pillow"            => &["fpdf2", "matplotlib"],
-        "pygments"          => &["rich", "nbconvert", "jupyterlab", "ipykernel"],
-        "filelock"          => &["huggingface-hub", "fsspec", "tokenizers"],
-        "tqdm"              => &["huggingface-hub", "langchain"],
-        "zipp"              => &["importlib-metadata", "importlib-resources"],
-        "marshmallow"       => &["dataclasses-json", "langchain-community"],
-        "fonttools"         => &["pillow"],
-        "black"             => &["langchain-cli"],
-        "jupyter_server"    => &["jupyterlab", "notebook_shim"],
-        "nbconvert"         => &["jupyterlab", "jupyter_server"],
-        "pyarrow"           => &["pandas", "langchain-community"],
-        "orjson_"           => &["chromadb"],
-        _                   => &[],
+        "urllib3" => &["requests", "selenium", "httpcore", "botocore"],
+        "requests" => &[
+            "langchain",
+            "langchain-community",
+            "langsmith",
+            "google-auth",
+            "selenium",
+            "huggingface-hub",
+        ],
+        "certifi" => &["requests", "httpcore"],
+        "idna" => &["requests", "httpx", "email-validator"],
+        "h11" => &["httpcore", "uvicorn"],
+        "httpcore" => &["httpx"],
+        "starlette" => &["fastapi", "langserve"],
+        "jinja2" => &[
+            "jupyter_server",
+            "langchain-core",
+            "nbconvert",
+            "jupyterlab",
+        ],
+        "tornado" => &["jupyter_server", "ipykernel"],
+        "aiohttp" => &["langchain-community", "fsspec"],
+        "langchain-core" => &["langchain", "langchain-community", "langserve"],
+        "langchain" => &["langchain-community", "langserve"],
+        "orjson" => &["chromadb"],
+        "protobuf" => &["grpcio", "googleapis-common-protos", "opentelemetry-proto"],
+        "pyasn1" => &["pyasn1-modules", "rsa"],
+        "setuptools" => &["pip", "build", "many packages at install time"],
+        "pillow" => &["fpdf2", "matplotlib"],
+        "pygments" => &["rich", "nbconvert", "jupyterlab", "ipykernel"],
+        "filelock" => &["huggingface-hub", "fsspec", "tokenizers"],
+        "tqdm" => &["huggingface-hub", "langchain"],
+        "zipp" => &["importlib-metadata", "importlib-resources"],
+        "marshmallow" => &["dataclasses-json", "langchain-community"],
+        "fonttools" => &["pillow"],
+        "black" => &["langchain-cli"],
+        "jupyter_server" => &["jupyterlab", "notebook_shim"],
+        "nbconvert" => &["jupyterlab", "jupyter_server"],
+        "pyarrow" => &["pandas", "langchain-community"],
+        "orjson_" => &["chromadb"],
+        _ => &[],
     }
 }
 
@@ -221,14 +237,25 @@ mod tests {
                 ranges: vec![OsvRange {
                     range_type: "ECOSYSTEM".into(),
                     events: vec![
-                        OsvEvent { introduced: Some("0".into()), fixed: None, last_affected: None },
-                        OsvEvent { introduced: None, fixed: Some(fixed.into()), last_affected: None },
+                        OsvEvent {
+                            introduced: Some("0".into()),
+                            fixed: None,
+                            last_affected: None,
+                        },
+                        OsvEvent {
+                            introduced: None,
+                            fixed: Some(fixed.into()),
+                            last_affected: None,
+                        },
                     ],
                 }],
             }],
         };
 
         let vulns = vec![make_vuln("3.9.4"), make_vuln("3.10.0"), make_vuln("3.9.8")];
-        assert_eq!(compute_safe_version(&vulns), SafeVersion::FixedIn("3.10.0".into()));
+        assert_eq!(
+            compute_safe_version(&vulns),
+            SafeVersion::FixedIn("3.10.0".into())
+        );
     }
 }

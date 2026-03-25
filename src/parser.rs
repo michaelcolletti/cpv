@@ -62,7 +62,8 @@ mod tests {
 
     #[test]
     fn parses_pip_list_format() {
-        let input = "Package    Version\n---------- -------\nnumpy      1.26.4\nrequests   2.31.0\n";
+        let input =
+            "Package    Version\n---------- -------\nnumpy      1.26.4\nrequests   2.31.0\n";
         let pkgs = parse_pip_list(input);
         assert_eq!(pkgs.len(), 2);
         assert_eq!(pkgs[0].name, "numpy");
