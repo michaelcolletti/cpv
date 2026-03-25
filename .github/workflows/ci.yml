@@ -12,7 +12,7 @@ env:
   RUST_BACKTRACE: 1
   # Opt into Node.js 24 now; required before June 2 2026 when it becomes
   # the forced default. Remove once all actions ship Node-24 natively.
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: false
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   # ── 1. Check ─────────────────────────────────────────────────────────────────
