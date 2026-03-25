@@ -1,6 +1,6 @@
 [package]
 name = "cpv"
-version = "0.1.0"
+version = "0.1.2"
 edition = "2021"
 description = "Check pip packages for known security vulnerabilities via OSV.dev"
 authors = ["Michael Colletti"]
@@ -14,7 +14,7 @@ path = "src/main.rs"
 
 [dependencies]
 clap = { version = "4", features = ["derive"] }
-reqwest = { version = "0.12", features = ["json", "blocking"] }
+reqwest = { version = "0.12", features = ["json", "rustls-tls"], default-features = false }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 colored = "2"
