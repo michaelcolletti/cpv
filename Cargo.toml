@@ -1,0 +1,26 @@
+[package]
+name = "cpv"
+version = "0.1.0"
+edition = "2021"
+description = "Check pip packages for known security vulnerabilities via OSV.dev"
+authors = ["Michael Colletti"]
+license = "MIT"
+repository = "https://github.com/michaelcolletti/cpv"
+keywords = ["security", "pip", "python", "vulnerabilities", "osv"]
+
+[[bin]]
+name = "cpv"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+reqwest = { version = "0.12", features = ["json", "blocking"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+colored = "2"
+tokio = { version = "1", features = ["full"] }
+anyhow = "1"
+
+[profile.release]
+opt-level = 3
+strip = true
